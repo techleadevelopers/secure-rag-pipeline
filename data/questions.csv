@@ -1,0 +1,11 @@
+id,question
+1,Como a governança de IA deve ser estruturada em grandes empresas?
+2,Quais são os principais riscos e controles para plataformas generativas?
+3,Como medir o custo e a latência de pipelines RAG em produção?
+4,Quais indicadores demonstram observabilidade de agentes corporativos?
+5,Como aplicar RBAC e ABAC em um agente RAG que serve vários papéis?
+6,Qual a política de retenção e auditoria sugerida para logs de IA?
+7,Em que casos o prompt injection é detectado e como responder?
+8,Quais são os marcos do playbook de implantação para IA corporate?
+9,Como o FAQ auxilia na tomada de decisão para iniciativas de IA?
+10,Que medidas de segurança protegem dados sensíveis em um agente RAG?

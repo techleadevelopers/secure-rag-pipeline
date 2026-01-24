@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "keywords": ["governança", "comitê", "documentação"],
+    "answer_snippet": "Comitês executivos, papéis claros e registros de decisão."
+  },
+  {
+    "id": 2,
+    "keywords": ["riscos", "controls", "gap analysis"],
+    "answer_snippet": "Identificar vetores de ataque, controles automatizados e revisão contínua."
+  },
+  {
+    "id": 3,
+    "keywords": ["latência", "monitoramento", "SLAs"],
+    "answer_snippet": "Métricas em pipeline, logging e triggers de alerta."
+  },
+  {
+    "id": 4,
+    "keywords": ["observabilidade", "painel", "logs"],
+    "answer_snippet": "Dashboards de latência, custos e documentos usados."
+  },
+  {
+    "id": 5,
+    "keywords": ["RBAC", "ABAC", "papel", "tags"],
+    "answer_snippet": "Mapeamento de rbac_tags por chunk e validação por role."
+  },
+  {
+    "id": 6,
+    "keywords": ["retenção", "auditoria", "30 dias"],
+    "answer_snippet": "Logs estruturados, alerta sobre exceções e ciclo de 90 dias para auditoria."
+  },
+  {
+    "id": 7,
+    "keywords": ["prompt injection", "ignore", "system"],
+    "answer_snippet": "Guardrails detectam instruções maliciosas e respondem com nota de segurança."
+  },
+  {
+    "id": 8,
+    "keywords": ["playbook", "roadmap", "deploy"],
+    "answer_snippet": "Fases de preparação, deploy, monitoramento e governance."
+  },
+  {
+    "id": 9,
+    "keywords": ["FAQ", "glossário", "decisão"],
+    "answer_snippet": "FAQ consolida termos críticos e sustenta treinamentos."
+  },
+  {
+    "id": 10,
+    "keywords": ["segurança", "dados sensíveis", "RAG"],
+    "answer_snippet": "Controles de acesso, criptografia em repouso e DLP."
+  }
+]
