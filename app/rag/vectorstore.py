@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, List
 
 from app.rag.chunking import Chunk
-from app.rag.config import CHROMA_DIR, TOPK_VECTOR
+from app.rag.config import CHROMA_DIR, TOPK_VECTOR, VECTOR_INDEX_PATH
 from app.rag.embeddings import EmbeddingProvider
 
 try:
@@ -68,6 +68,7 @@ if CHROMADB_AVAILABLE:
 
 
 else:
+    import pickle
     _IN_MEMORY_STORE: List[Dict] = []
 
 
@@ -89,9 +90,16 @@ else:
                 }
             )
         _IN_MEMORY_STORE = entries
+        VECTOR_INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with VECTOR_INDEX_PATH.open("wb") as handle:
+            pickle.dump(entries, handle)
 
 
     def query_vector(text: str, topk: int = TOPK_VECTOR) -> List[Dict]:
+        global _IN_MEMORY_STORE
+        if not _IN_MEMORY_STORE and VECTOR_INDEX_PATH.exists():
+            with VECTOR_INDEX_PATH.open("rb") as handle:
+                _IN_MEMORY_STORE = pickle.load(handle)
         if not _IN_MEMORY_STORE:
             return []
         embedding = _EMBEDDING.embed_texts([text])[0]
