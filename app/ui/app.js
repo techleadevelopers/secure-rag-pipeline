@@ -3,6 +3,7 @@ const questionInput = document.getElementById("question");
 const userRoleInput = document.getElementById("user-role");
 const statusMessage = document.getElementById("status-message");
 const resultArea = document.getElementById("result-area");
+let apiKey = localStorage.getItem("atl_api_key") || "";
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -24,14 +25,33 @@ async function askAgent() {
     conversation_id: generateConversationId(),
   };
 
+  if (!apiKey) {
+    apiKey = prompt("Informe o API Key para acessar o agente:") || "";
+    if (!apiKey) {
+      statusMessage.textContent = "API Key é obrigatória.";
+      return;
+    }
+    localStorage.setItem("atl_api_key", apiKey);
+  }
+
   setLoadingState();
 
   try {
     const response = await fetch("/ask", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-API-Key": apiKey },
       body: JSON.stringify(payload),
     });
+
+    if (response.status === 401) {
+      localStorage.removeItem("atl_api_key");
+      apiKey = "";
+      throw new Error("API Key inválida ou expirada.");
+    }
+
+    if (response.status === 503) {
+      throw new Error("Servidor sem API Key configurada.");
+    }
 
     if (!response.ok) {
       throw new Error("Não foi possível consultar o agente.");
