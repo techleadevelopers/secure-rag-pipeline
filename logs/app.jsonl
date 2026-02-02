@@ -21,3 +21,4 @@
 {"timestamp": "2026-01-05T22:09:51.912601Z", "level": "INFO", "event": "ask.complete", "correlation_id": "54ba7d9e-7d97-4493-bbd6-765776c82366", "details": {"user_role": "interno", "latency_ms": 1, "topk": 7, "docs_used": 6, "tokens_est": 199, "cost_est": 0.000199}}
 {"timestamp": "2026-01-05T22:09:51.914602Z", "level": "INFO", "event": "ask.complete", "correlation_id": "4cd15bd4-08c3-4d10-ba05-ab69c4c2b021", "details": {"user_role": "interno", "latency_ms": 1, "topk": 6, "docs_used": 6, "tokens_est": 182, "cost_est": 0.000182}}
 {"timestamp": "2026-01-05T22:09:51.916602Z", "level": "INFO", "event": "ask.complete", "correlation_id": "32cdc10b-7bcb-40f1-b344-7a26f2fcb777", "details": {"user_role": "interno", "latency_ms": 1, "topk": 5, "docs_used": 5, "tokens_est": 165, "cost_est": 0.000165}}
+{"timestamp": "2026-02-02T20:41:29.193934Z", "level": "INFO", "event": "ingest.complete", "details": {"chunks": 8, "documents": 6}}
