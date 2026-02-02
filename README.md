@@ -1,4 +1,4 @@
-# Atlantyx – Agente RAG Corporativo
+# Agente RAG Corporativo
 
 Painel e backend para demonstração de IA governada em grandes empresas. O foco está em observabilidade, controle de acesso, defesa contra prompt injection e transparência das fontes (citando documentos oficiais).
 
