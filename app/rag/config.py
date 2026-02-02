@@ -7,6 +7,7 @@ LOG_DIR = ROOT.parent / "logs"
 
 CHROMA_DIR = Path(os.getenv("CHROMA_DIR", DATA_DIR / "index" / "chroma"))
 BM25_INDEX_PATH = DATA_DIR / "index" / "bm25.pkl"
+VECTOR_INDEX_PATH = DATA_DIR / "index" / "vector.pkl"
 
 TOPK_VECTOR = int(os.getenv("TOPK_VECTOR", "8"))
 TOPK_BM25 = int(os.getenv("TOPK_BM25", "12"))
