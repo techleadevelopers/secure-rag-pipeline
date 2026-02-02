@@ -23,7 +23,8 @@ def _chunk_text(text: str) -> Iterable[str]:
     start = 0
     length = CHUNK_SIZE
     while start < len(cleaned):
-        yield cleaned[start : start + length]
+        end = min(len(cleaned), start + length)
+        yield cleaned[start:end], start, end
         start += length - CHUNK_OVERLAP
 
 
@@ -37,12 +38,12 @@ def chunk_document(document: LoadedDocument) -> List[Chunk]:
     doc_tags = ["publico"]
     classification = "internal"
     if document.doc_id in RESTRICTED_DOCS:
-        doc_tags.append("restrito")
+        doc_tags = ["restrito"]
         classification = "restricted"
 
     for section in document.sections:
         text_fragments = list(_chunk_text(section.text))
-        for idx, chunk_text in enumerate(text_fragments):
+        for idx, (chunk_text, start, end) in enumerate(text_fragments):
             chunk_id = _compute_chunk_id(document.doc_id, section.loc, idx)
             metadata = {
                 "doc_id": document.doc_id,
@@ -50,6 +51,7 @@ def chunk_document(document: LoadedDocument) -> List[Chunk]:
                 "title": document.title,
                 "section_heading": section.heading,
                 "loc": section.loc,
+                "chunk_span": [start, end],
                 "version": document.version,
                 "classification": classification,
                 "rbac_tags": doc_tags,
