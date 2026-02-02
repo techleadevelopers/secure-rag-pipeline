@@ -15,18 +15,25 @@ Painel e backend para demonstração de IA governada em grandes empresas. O foco
 
 ## Como rodar
 
-1. Crie um ambiente Python 3.11, ative e execute `make install`.
+1. Crie um ambiente Python **3.11**, ative e execute `make install`.
 2. Coloque os documentos oficiais (PDFs, DOCX e HTML listados no kit) dentro de `data/sources/`.
-3. Execute `make ingest` para indexar todos os chunks no BM25 e no store escolhido.
-4. Rode `make serve` e acesse `http://localhost:8000/ui` para usar o painel técnico.
-5. Execute `make eval` para avaliar as 10 perguntas; o script gera `eval/results.jsonl` e `eval/report.md`.
+3. Defina a API Key obrigatória: `set API_KEY=sua-chave` (Windows) ou `export API_KEY=...`.
+4. Opcional: restrinja origens com `ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000`.
+5. Execute `make ingest` para indexar todos os chunks no BM25 e no store escolhido.
+6. Rode `make serve` e acesse `http://localhost:8000/ui` (o front pedirá a API Key na primeira pergunta).
+7. Execute `make eval` para avaliar as 10 perguntas; o script gera `eval/results.jsonl` e `eval/report.md`.
 
 ## Segurança
 
 - **RBAC/ABAC**: cada chunk traz `rbac_tags` (público/interno/restrito) e apenas roles autorizadas recebem contextos sensíveis.
-- **Guardrails**: injecções e pedidos de dados sensíveis são detectados por padrões (ignore previous, system prompt, developer message etc.) e a resposta é reduzida a uma nota segura de auditoria.
+- **Guardrails**: injec??es e pedidos de dados sens?veis s?o detectados por padr?es expandidos em PT/EN e bloqueados antes do retrieval; se disparar, a resposta ? reduzida a nota segura de auditoria.
 - **Logs estruturados**: `logs/app.jsonl` mantém eventos com `correlation_id`, `latency_ms`, `tokens_est`, `cost_est`, `topk`, `docs_used`. Retenção padrão é 30 dias com exceção de 90 dias para auditors em backlog.
 - **Modo DEBUG**: para diagnóstico, defina `DEBUG_LOG_CONTENT=true` (uma flag declarada em `app/rag/config.py`) e os logs incorporam payloads e respostas completas com aviso claro.
+
+
+## CI
+
+- Workflow GitHub Actions (`.github/workflows/ci.yml`) roda `make test` em Python 3.11 a cada push/PR.
 
 ## Tradeoffs
 
