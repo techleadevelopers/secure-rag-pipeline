@@ -2,21 +2,29 @@ from typing import Iterable, List, Tuple
 
 INJECTION_PATTERNS = [
     "ignore previous",
+    "ignore all previous",
     "system prompt",
     "developer message",
+    "act as",
+    "instruções anteriores",
+    "prompt original",
     "reveal",
-    "secret",
-    "chave",
-    "senha",
+    "leak",
+    "segredo",
+    "segredo do sistema",
 ]
 
 EXFIL_PATTERNS = [
     "credenciais",
     "senha",
     "apikey",
+    "api key",
     "chave",
     "token",
     "segredo",
+    "secret",
+    "access key",
+    "auth header",
 ]
 
 
