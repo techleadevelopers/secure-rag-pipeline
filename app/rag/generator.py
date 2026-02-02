@@ -27,10 +27,14 @@ def build_answer(question: str, contexts: List[dict]) -> Tuple[str, List[Citatio
     for context in contexts:
         quote = _sentence_from_text(context["text"])
         meta = context["metadata"]
+        span = meta.get("chunk_span")
+        span_label = ""
+        if span and isinstance(span, (list, tuple)) and len(span) == 2:
+            span_label = f" [{span[0]}-{span[1]}]"
         citation = Citation(
             doc_id=meta.get("doc_id", "desconhecido"),
             source=meta.get("title") or meta.get("source", "não informado"),
-            loc=meta.get("loc", "—"),
+            loc=f"{meta.get('loc', '—')}{span_label}",
             quote=quote[:500],
         )
         citations.append(citation)
