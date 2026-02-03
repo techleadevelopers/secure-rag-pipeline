@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { AskResponse } from "@shared/schema";
-import { AlertTriangle, User, Bot, ShieldAlert, Copy, Check } from "lucide-react";
+import { AlertTriangle, User, Bot, ShieldAlert, Copy, Check, Info } from "lucide-react";
 import { MetricsBar } from "./MetricsBar";
 import { CitationsList } from "./CitationsList";
 import { ConfidenceBar } from "./ConfidenceBar";
@@ -26,6 +26,23 @@ interface MessageBubbleProps {
 export function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.role === "user";
   const [copied, setCopied] = useState(false);
+  const confidence = message.data?.confidence ?? null;
+  const riskColor =
+    confidence === null
+      ? "from-slate-600/60 to-slate-700/60 text-slate-200"
+      : confidence >= 0.7
+        ? "from-emerald-500/30 to-emerald-600/20 text-emerald-200"
+        : confidence >= 0.4
+          ? "from-amber-500/30 to-amber-600/20 text-amber-200"
+          : "from-red-500/35 to-red-600/20 text-red-200";
+  const riskLabel =
+    confidence === null
+      ? "N/A"
+      : confidence >= 0.7
+        ? "Risco Baixo"
+        : confidence >= 0.4
+          ? "Risco Moderado"
+          : "Risco Alto";
 
   const handleCopy = async () => {
     try {
@@ -61,11 +78,11 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         isUser ? "items-end" : "items-start"
       )}>
         <div className={cn(
-          "relative rounded-2xl px-6 py-4 shadow-xl text-sm md:text-base leading-relaxed",
-          isUser 
-            ? "bg-primary text-primary-foreground rounded-tr-sm" 
-            : "bg-card dark:bg-card border border-border/50 text-card-foreground rounded-tl-sm neon-glow"
-        )}>
+        "relative rounded-2xl px-6 py-4 shadow-xl text-sm md:text-base leading-relaxed",
+        isUser 
+          ? "bg-primary text-primary-foreground rounded-tr-sm" 
+          : "bg-card dark:bg-card border border-border/50 text-card-foreground rounded-tl-sm neon-glow"
+      )}>
           {!isUser && (
             <Button
               variant="ghost"
@@ -93,6 +110,24 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
           {message.data && (
             <div className="mt-4 pt-4 border-t border-border/50 dark:border-border/50 space-y-4">
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${riskColor} border border-white/5 shadow-lg shadow-black/20`}>
+                  <div className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
+                  <span className="text-xs font-semibold tracking-tight uppercase">{riskLabel}</span>
+                  {confidence !== null && (
+                    <span className="text-[11px] text-white/80">({Math.round(confidence * 100)}%)</span>
+                  )}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-[11px] gap-1 bg-white/5 border-white/10 text-muted-foreground hover:text-foreground"
+                  onClick={() => alert("Explicação: resposta montada a partir dos trechos citados. Consulte as citações para ver a origem exata.")}
+                >
+                  <Info className="w-3.5 h-3.5" /> Por que essa resposta?
+                </Button>
+              </div>
+
               <ConfidenceBar confidence={message.data.confidence} />
 
               {message.data.confidence < 0.4 && (
