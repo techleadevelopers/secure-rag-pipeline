@@ -1,7 +1,7 @@
 # Agente RAG Corporativo
 
 Painel e backend para demonstração de IA governada em grandes empresas. O foco está em observabilidade, controle de acesso, defesa contra prompt injection e transparência das fontes (citando documentos oficiais).
-
+<img src="https://res.cloudinary.com/limpeja/image/upload/v1770092770/3d9fb421-9630-47e7-9f6b-3267ae8bc965.png" alt="LimpeJá-App Logo" width="1024">
 ## Arquitetura
 
 - **Ingestão** (app/rag/ingest): carrega `pdf`, `docx` e `html`, normaliza seções, cria chunks com metadados e envia para Chroma + BM25 local.
