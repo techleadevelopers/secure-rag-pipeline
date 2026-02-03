@@ -12,31 +12,36 @@ export function MetricsBar({ metrics }: MetricsBarProps) {
       icon: Clock, 
       label: "Latency", 
       value: `${metrics.latency_ms.toFixed(0)}ms`,
-      color: "text-blue-400"
+      color: "text-cyan-300",
+      glow: "shadow-[0_0_12px_rgba(34,211,238,0.35)]"
     },
     { 
       icon: Zap, 
       label: "Tokens", 
       value: metrics.tokens_est.toLocaleString(),
-      color: "text-yellow-400" 
+      color: "text-amber-300",
+      glow: "shadow-[0_0_12px_rgba(251,191,36,0.28)]"
     },
     { 
       icon: Coins, 
       label: "Est. Cost", 
       value: `$${metrics.cost_est.toFixed(4)}`,
-      color: "text-green-400"
+      color: "text-emerald-300",
+      glow: "shadow-[0_0_12px_rgba(52,211,153,0.3)]"
     },
     { 
       icon: BarChart3, 
       label: "Top K", 
       value: metrics.topk,
-      color: "text-purple-400"
+      color: "text-indigo-300",
+      glow: "shadow-[0_0_12px_rgba(129,140,248,0.32)]"
     },
     { 
       icon: FileText, 
       label: "Docs", 
       value: metrics.docs_used,
-      color: "text-orange-400"
+      color: "text-orange-300",
+      glow: "shadow-[0_0_12px_rgba(251,146,60,0.28)]"
     },
   ];
 
@@ -45,9 +50,11 @@ export function MetricsBar({ metrics }: MetricsBarProps) {
       {items.map((item, i) => (
         <Tooltip key={i}>
           <TooltipTrigger asChild>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/40 border border-white/5 text-xs font-medium text-muted-foreground hover:bg-background/60 hover:border-white/10 transition-colors cursor-help">
-              <item.icon className={`w-3 h-3 ${item.color}`} />
-              <span>{item.value}</span>
+            <div
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-slate-900/70 via-slate-900/40 to-slate-800/30 border border-white/5 text-[11px] font-semibold text-slate-100 hover:border-white/15 transition-colors cursor-help backdrop-blur-sm ${item.glow}`}
+            >
+              <item.icon className={`w-3.5 h-3.5 ${item.color}`} />
+              <span className="tracking-tight">{item.value}</span>
             </div>
           </TooltipTrigger>
           <TooltipContent className="text-xs bg-popover border-border">
