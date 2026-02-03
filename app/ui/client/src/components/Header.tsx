@@ -47,7 +47,7 @@ export function Header() {
 
   const getConnectionStatus = () => {
     if (isConnected === null) return { icon: Circle, color: "text-muted-foreground", label: "Not checked" };
-    if (isConnected) return { icon: Wifi, color: "text-green-500", label: "Connected" };
+    if (isConnected) return { icon: Wifi, color: "text-cyan-500", label: "Connected" };
     return { icon: WifiOff, color: "text-red-500", label: "Disconnected" };
   };
 
@@ -58,11 +58,13 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full glass-panel tech-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-2">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/20">
-            <Database className="w-4 h-4 text-white" />
-          </div>
+          <img
+            src="https://res.cloudinary.com/limpeja/image/upload/v1770092544/image-removebg-preview_9_qi1w8y.png"
+            alt="Atlantyx logo"
+            className="w-8 h-8  object-cover bg-card"
+          />
           <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent hidden md:block">
-            DeepRAG <span className="text-accent text-sm font-normal">Corp</span>
+            RAG Security <span className="text-accent text-sm font-normal">Corp</span>
           </h1>
         </div>
 
