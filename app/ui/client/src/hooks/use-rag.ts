@@ -10,9 +10,16 @@ export function useRagApi() {
   const [role, setRole] = useState<AskPayload["user_role"]>(() => 
     (localStorage.getItem("rag_user_role") as AskPayload["user_role"]) || "public"
   );
-  const [conversationId, setConversationId] = useState<string>(() => 
-    localStorage.getItem("rag_conversation_id") || crypto.randomUUID()
-  );
+  const [conversationId, setConversationId] = useState<string>(() => {
+    const existing = localStorage.getItem("rag_conversation_id");
+    if (existing) return existing;
+    const generated =
+      typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2);
+    localStorage.setItem("rag_conversation_id", generated);
+    return generated;
+  });
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
 
   useEffect(() => {
