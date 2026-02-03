@@ -64,9 +64,14 @@ export default function Home() {
     }
   }, [messages]);
 
+  const genId = () =>
+    (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function")
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2);
+
   const handleSendMessage = (content: string) => {
     const userMsg: Message = {
-      id: crypto.randomUUID(),
+      id: genId(),
       role: "user",
       content,
       timestamp: new Date(),
@@ -76,7 +81,7 @@ export default function Home() {
     ask.mutate({ question: content }, {
       onSuccess: (data) => {
         const agentMsg: Message = {
-          id: crypto.randomUUID(),
+          id: genId(),
           role: "agent",
           content: data.answer,
           data: data,
@@ -216,8 +221,12 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-6 pb-4">
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center min-h-[50vh] text-center space-y-6">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-card to-background border border-border flex items-center justify-center shadow-2xl shadow-primary/10">
-                  <Database className="w-10 h-10 text-primary/80" />
+                <div className="w-28 h-28  flex items-center justify-center overflow-hidden">
+                  <img
+                    src="https://res.cloudinary.com/limpeja/image/upload/v1770091995/image-removebg-preview_8_dcvfxk.png"
+                    alt="Projects"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="space-y-2 max-w-md">
                   <h2 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
