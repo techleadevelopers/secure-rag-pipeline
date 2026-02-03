@@ -24,7 +24,7 @@ def build_answer(question: str, contexts: List[dict]) -> Tuple[str, List[Citatio
     max_score = max(context["score"] for context in contexts)
     unique_docs = {context["metadata"].get("doc_id") for context in contexts}
 
-    for context in contexts:
+    for idx, context in enumerate(contexts, start=1):
         quote = _sentence_from_text(context["text"])
         meta = context["metadata"]
         span = meta.get("chunk_span")
@@ -38,7 +38,7 @@ def build_answer(question: str, contexts: List[dict]) -> Tuple[str, List[Citatio
             quote=quote[:500],
         )
         citations.append(citation)
-        paragraphs.append(f"{quote} ({citation.doc_id} – {citation.loc})")
+        paragraphs.append(f"- [{idx}] {quote}")
 
     body = "\n".join(paragraphs)
     confidence = min(
